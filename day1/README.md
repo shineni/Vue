@@ -273,8 +273,32 @@ module.exports = {
     	plugins:[htmlPlugin, cleanWebpackPlugin],
 	}
 	```
-		
 
+#### **【需求9：如何通过报错信息的提示准确定位到文件-->SourceMap】**
+默认Source Map的问题：开发环境下，默认生成的Source Map，记录的是生成后的代码的位置，会导致运行时报错的行数和源代码行数不一致的问题
+
+Source Map就是一个信息文件，里面存储着位置信息，也就是说Souce Map里面存储的是压缩混淆后的代码所对应转换前的位置，有了它，出错工具将直接显示原始代码，而不是转换后的代码，能够极大方便后期调试
+
+【解决方案，配置webpack.config.js】
+```
+module.exports = {
+    mode:'development', // development & production
+    //在开发调试阶段，建议大家都把devtool的值设置为eval-source-map
+    //devtool:'eval-source-map',
+    //在实际发布的时候，建议大家都把devtool的值设置为nosource-source-map或者直接关闭SourceMap
+    devtool:'nosource-source-map',
+}
+```	
+在生产环境下，如果省略了devtool选项，则最终生成的问题件中不包含Source Map,这样能够防止原始代码通过Source Map的形式暴露给别有所图之人--》解决方案
+- 只定位行数，不暴露代码：在实际发布的时候，建议大家都把devtool的值设置为nosource-source-map（devtool的值设置为source-map会即显示行数又暴露代码）
+
+原则：开发环境下，优先考虑调试，生产环境下优先考虑安全性
+- 开发环境下
+	- 建议把devtool的值设置为eval-source-map
+	- 好处：可以精准定位到具体的错误行
+- 生产环境下
+	- 建议关闭Source Map或将devtool的值设置为nosources-source-map
+	- 好处：防止源码泄漏，提高网站的安全性
 
 
 
