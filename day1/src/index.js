@@ -23,7 +23,32 @@ console.log(Person.info)
 const vm = new Vue({
     el:'#app',  // el属性，vm实例控制的区域
     data:{  // data就是要渲染到页面的数据
+        list:[],
+        productName:'',
+        index:0,
+    },
+    methods:{
+        add(){
+            if(this.productName!==''){
+                let index = this.index++
+                let o = {
+                    id:index,
+                    name:this.productName,
+                    time: new Date(),
+                }
+                this.list.push(o)
+                this.productName=''
+            }
 
+        },
+        deleteItem(id){
+            for(let i = 0; i<this.list.length;i++){
+                if(this.list[i].id ===id){
+                    this.list.splice(i,1) 
+                }
+            }
+
+        }
     }
 
 })

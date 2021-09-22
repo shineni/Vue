@@ -23,7 +23,8 @@
 	- 导入Vue的库文件，在window全局就有了Vue这个构造函数
 	- 创建vue的实例
 ### 2.2 指令（Directives）
-> 指令是vue为开发者提供的模板语法，用于辅助开发者渲染页面的基本结构
+> 指令是vue为开发者提供的模板语法，用于辅助开发者渲染页面的基本结构,
+> 记住，指令内部“”内写JS代码
 Vue中指令按照不同的用途可以分为一下6类：
 - 1. 内容渲染指令
 	- 输出纯文本
@@ -47,6 +48,42 @@ Vue中指令按照不同的用途可以分为一下6类：
 		- event.preventDefault()或者event.stopPropagation()是非常常见的需求，vue提供了事件修饰符的概念辅助程序员更方便对事件的触发进行控制，常用的5个事件修饰符
 			- .prevent 阻止默认行为（例如：阻止a链接的跳转，阻止表单的提交）
 			- .stop阻止事件冒泡，绑定在作用的元素
+	- 按键修饰符：监听键盘事件时，经常需要判断详细的按键，此时可以为键盘相关的事件添加按键修饰符
+		- <input @keyup.enter = "submit">
+		- <input @keyup.esc = "clear">
+		
 - 4. 双向绑定指令
-- 5. 条件渲染指令
-- 6. 列表渲染指令
+	- v-model 在底层封装的时候就监听了value属性，只有表单元素使用v-model才有意义
+		- input 
+		- textarea
+		- select
+	- v-model修饰符
+		- .number   <input v-model.number="number">
+		- .trim     <input v-model.trim="userName">
+		- .lazy	在change时update而非input的时候更新	<input v-model.lazy="userName">
+- 5. 条件渲染指令（按需控制元素的显示和隐藏）
+	- v-if 每次都会动态添加或者删除元素
+	- v-show 原理是动态为元素添加样式display:none样式
+	- 如果要频繁切换元素的显示，要使用v-show
+	- v-if如果初始值是false，即某些元素不需要被展示，而且后期这个元素很可能不需要被显示出来，此时性能更好
+	- 在实际开发中，绝大多数情况不需要考虑性能问题，直接使用v-if
+- 6. 列表渲染指令v-for
+	- v-for指令支持一个可选的第二个参数，
+	- 官方建议，只要用到了v-for指令，那么一定要绑定一个:key属性，而且尽量把id作为key的值，官方对key的值得类型是要求的，只能是字符串，或者数字类型
+	- key的值是不能重复的，否则终端会报错，Duplicate key
+
+案例
+```
+<a @click.prevent = "handleClick">点击不跳转</a>
+
+<div @click.prevent = "handleClick">阻止事件冒泡</div>
+
+<div v-if="type==='A'">优秀</div>
+<div v-else-if="type==='B'">良好</div>
+<div v-else-if="type==='C'>及格</div>
+<div v-else>及格</div>
+```
+
+
+
+
