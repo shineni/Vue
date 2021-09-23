@@ -2,6 +2,7 @@ import "@/css/index.css"  // 导入样式（webpack 中一切皆模块，都可�
 import "@/css/index.less" 
 import logo from "@/images/logo.jpg"
 import Vue from 'vue'
+import moment from 'moment'
 //导入的是一个路径，导出的是一个base64的字符串，这样可以减少请求
 
 // let el = document.getElementById('main')
@@ -34,7 +35,8 @@ const vm = new Vue({
                 let o = {
                     id:index,
                     name:this.productName,
-                    time: new Date(),
+                    status: true,
+                    time: moment().format('MM-DD-YYYY LTS'),
                 }
                 this.list.push(o)
                 this.productName=''
