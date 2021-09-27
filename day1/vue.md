@@ -83,6 +83,67 @@ Vue中指令按照不同的用途可以分为一下6类：
 <div v-else-if="type==='C'>及格</div>
 <div v-else>及格</div>
 ```
+### 2.3 过滤器（filters）
+####  私有过滤器&全局过滤器
+- 全局过滤器：独立于每个vm实例之外
+- vue.filter()方法接受两个参数：第一个参数是全局过滤器的名字，第二个参数是全局过滤器的处理函数
+```
+	Vue.filter('capitalize',(str)=>{
+		return str.chartAt(0).toUpperCase() + str.slice(1)
+	})
+```
+
+**过滤器的注意点**
+- 1. 要定义到filters节点下，本质是一个函数
+- 2. 在过滤器函数中，一定要return值
+- 3. 在过滤器的形参中，就可以获取到“管道符”前面待处理的那个值
+- 4. 如果全局过滤器和私有过滤器名字一致，此时按照就近原则，调用的是私有过滤器
+- 5. 过滤器可以串联使用
+- 6. 【兼容性】Vue3里面没有filter只有vue1.x和vue.2.x里面有
+- 7. 过滤器处理函数的参数
+	- 如果需要传递多个参数，必须从第二个参数开始，因为第一个参数，永远都是“管道符”前面待处理的值
+```
+	Vue.filter('filterA',(msg, arg1, arg2)=>{
+		//过滤器代码逻辑...
+	})
+```
+### 2.4 Vue基础
+#### 2.4.1 侦听器
+> 监视数据的变化，侦听器本质是一个函数，要侦听哪个数据的变化，就把数据当做方法名即可。 
+- 参数：
+	- 新值在前，旧值在后
+##### 侦听器的格式
+- 方法格式的侦听器
+	- 缺点：无法在刚进入页面的时候，自动触发
+	- 缺点2： 如果侦听的是一个对象，如果对象中的属性发生了变化，不会触发侦听器
+- 对象格式的侦听器
+	- 好处： 可以通过immediate选项，让侦听器自动触发！！！
+	- 好处2： 可以通过deep选项，让侦听器深度监听对象中的每个属性的变化
+```
+        watchValue(newVal,oldVal){
+            console.log(`newValue ${newVal}, oldValue ${oldVal}`)
+        }
+```
+```
+        watchValue:{
+            handler(newVal,oldVal){
+                console.log(`newValue ${newVal}, oldValue ${oldVal}`)
+            },
+            // immediate选项的默认值是false
+            // immediate的作用是：控制侦听器是否自动触发一次
+            immediate: true
+        }
+```
+```
+        //如果要侦听的是对象的子属性的变化，则必须包裹一层单引号
+        'info.username'(newValue){
+            console.log(newValue)
+        }
+```
+
+#### 2.4.2 计算属性
+#### 2.4.3 vue-cli
+#### 2.4.4 vue组件
 
 
 

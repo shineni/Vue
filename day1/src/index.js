@@ -27,6 +27,8 @@ const vm = new Vue({
         list:[],
         productName:'',
         index:0,
+        message:'hello vue.js',
+        watchValue:'',
     },
     methods:{
         add(){
@@ -50,6 +52,30 @@ const vm = new Vue({
                 }
             }
 
+        }
+    },
+    watch:{
+        // watchValue(newVal,oldVal){
+        //     console.log(`newValue ${newVal}, oldValue ${oldVal}`)
+        // }
+        watchValue:{
+            handler(newVal,oldVal){
+                console.log(`newValue ${newVal}, oldValue ${oldVal}`)
+            },
+            // immediate选项的默认值是false
+            // immediate的作用是：控制侦听器是否自动触发一次
+            immediate: true,
+            deep:true
+        }
+        // //如果要侦听的是对象的子属性的变化，则必须包裹一层单引号
+        // 'info.username'(newValue){
+        //     console.log(newValue)
+        // }
+    
+    },
+    filters:{
+        capi(val){
+            return val.charAt(0).toUpperCase()  + val.slice(1)
         }
     }
 
