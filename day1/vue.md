@@ -151,7 +151,68 @@ Vue中指令按照不同的用途可以分为一下6类：
 	- 只要计算属性中依赖的数据源变化了，则计算属性会重新求值
 #### 2.4.3 vue-cli
 #### 2.4.4 vue组件
+### 2.5 axios
+> axios 是一个专注请求的库
+- 发起Get请求
+```
+// axios返回的是Promise对象
+// 解构赋值的时候，使用冒号：进行重命名
+//1.调用axios后，使用async/await进行简化
+//2.使用解构赋值，从axios封装的大对象中，把data属性解构出来
+//3.把解构出来的data属性，使用冒号进行重命名，一般都重命名为{data:res}
+const {data:res}   = axios({
+    //method指定请求的方式
+    method:"GET",
+    // url指定请求的路径
+    url:"https://www.baidu.com",
+    params:{}
+})
+console.log(res.data)
+axios({
+    //method指定请求的方式
+    method:"GET",
+    // url指定请求的路径
+    url:"https://www.baidu.com",
+    data:{
+        name:'shine',
+        age:20
+    }
+}).then((result)=>{})
 
+// axios.get('url',{
+//     //GET参数
+//     params:{}
+// })
+
+const {data:res} = axios.get('http://www.liulongbin.top:3006/api/getbooks',{
+    params:{id:1}
+})
+
+// axios.post('url',{
+//     //POST参数
+//     data:{}
+// })
+
+const {data:res} = axios.get('http://www.liulongbin.top:3006/api/getbooks',{
+    name:'shine',
+    gender:'女'
+})
+console.log(res)
+```
+- 发起Post请求
+```
+
+// axios.post('url',{
+//     //POST参数
+//     data:{}
+// })
+
+const {data:res} = axios.get('http://www.liulongbin.top:3006/api/getbooks',{
+    name:'shine',
+    gender:'女'
+})
+console.log(res)
+```
 
 
 
