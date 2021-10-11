@@ -214,5 +214,60 @@ const {data:res} = axios.get('http://www.liulongbin.top:3006/api/getbooks',{
 console.log(res)
 ```
 
+### 2.6 vue-cli
+
+- vue项目的运行流程
+	- 在工程化的项目中，vue要做的事情很单纯，通过main.js把App.vue渲染到index.html指定的区域中
+		- App.vue用来编写待渲染的模板结构
+		- index.html中需要预留一个el区域
+		- main.js把App.vue渲染到了index所预留的区域中
+
+### 2.7 组件化
+> 组件化开发指的是根据封装的思想，把页面上可重用的UI结构封装成组件，从而方便项目的开发和维护（对UI的封装和复用）
+
+vue中规定：组件的后缀名是.vue。之前接触到的App.vue文件本质上就是一个vue组件。
+- Vue组件的三个组成部分（结构+样式+行为）
+	- template:组件的模板结构（DOM结构）
+	- script：定义组件的行为
+	- style：定义组件的样式
+```
+<template>
+    <div> 
+        这是Test ---{{username}}
+            <button @click ="changeName">ChangeName</button>
+    </div>
+
+</template>
+
+<script lang="less">
+    // 默认导出，固定写法!
+    export default {
+        // data数据源
+        // 注意： .vue组件中的data不能像之前一样，不能指向对象
+        // 注意：组件中的data必须是一个函数
+        data(){
+            //这个return出去的{}中可以定义数据
+            return {
+                username:'admin'
+            }
+        },
+        methods:{
+            changeName(){
+                this.username='shine'
+            }
+        }
+    }
+</script>
 
 
+<style>
+.bkg{
+    background-color:#bfa;
+}
+</style>
+```
+【注意】
+- tempalte里面只能包含一个根节点
+- 如果要使用less语法，需要在style里面添加一个lang属性
+- .vue组件中的data不能像之前一样，不能指向对象
+- 组件中的data必须是一个函数
